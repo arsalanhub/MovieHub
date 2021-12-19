@@ -3,3 +3,9 @@
     top: 1rem;
     right: 1rem; 
 }
+
+.button-style {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
