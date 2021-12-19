@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { movies } from './getMovies.js'
+import './Movies.css'
 
 export default class Movies extends Component {
     render() {
@@ -21,9 +22,10 @@ export default class Movies extends Component {
                                                 <div className="card" style={{ width: "18rem;" }}>
                                                     <img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} className="card-img-top" alt="..." />
                                                     <div className="card-body">
-                                                        <h5 className="card-title">{movieObj.original_title} <span class="badge bg-secondary">{movieObj.vote_average}</span></h5>
+                                                        <h5 className="card-title">{movieObj.original_title} 
+                                                           <span class="badge bg-primary rating"> {movieObj.vote_average}</span>
+                                                        </h5>
                                                         <p className="card-text">{movieObj.overview}</p>
-                                                        <a href="#" className="btn btn-primary">Go somewhere</a>
                                                     </div>
                                                 </div>
                                             </div>
