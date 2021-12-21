@@ -35,9 +35,13 @@ export default class Movies extends Component {
                                 {movieObj.vote_average}
                               </span>
                             </h5>
-                            <p className="card-text">{movieObj.overview.substring(0,100)}...</p>
+                            <p className="card-text">
+                              {movieObj.overview.substring(0, 100)}...
+                            </p>
                             <div className="button-wrapper button-style">
-                                <a href="#" className="btn btn-primary">Add to Favourite</a>
+                              <a href="#" className="btn btn-primary">
+                                Add to Favourite
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -45,6 +49,35 @@ export default class Movies extends Component {
                     );
                   })}
                 </div>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        Previous
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        1
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        2
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        3
+                      </a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        Next
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
