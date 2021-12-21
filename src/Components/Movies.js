@@ -3,6 +3,12 @@ import { movies } from "./getMovies.js";
 import "./Movies.css";
 
 export default class Movies extends Component {
+  constructor() {
+    super();
+    this.state = {
+      hover: "",
+    };
+  }
   render() {
     let movie = movies.results;
     return (
@@ -21,7 +27,16 @@ export default class Movies extends Component {
                 <div className="row">
                   {movie.map((movieObj) => {
                     return (
-                      <div className="my-3 col-md-4">
+                      // If we hover over the card then hover stores id of movie
+                      <div
+                        className="my-3 col-md-4"
+                        onMouseEnter={() =>
+                          this.setState({ hover: movieObj.id })
+                        }
+                        onMouseLeave={() => {
+                          this.setState({ hover: "" });
+                        }}
+                      >
                         <div className="card" style={{ width: "18rem;" }}>
                           <img
                             src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`}
@@ -39,9 +54,14 @@ export default class Movies extends Component {
                               {movieObj.overview.substring(0, 100)}...
                             </p>
                             <div className="button-wrapper button-style">
-                              <a href="#" className="btn btn-primary">
-                                Add to Favourite
-                              </a>
+                              {
+                                //  if hover stores id of movie then display Add to favourite button
+                                this.state.hover == movieObj.id && (
+                                  <a className="btn btn-primary">
+                                    Add to Favourite
+                                  </a>
+                                )
+                              }
                             </div>
                           </div>
                         </div>
