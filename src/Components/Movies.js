@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { movies } from "./getMovies.js";
 import "./Movies.css";
-import axios from 'axios';
+import axios from "axios";
 
 export default class Movies extends Component {
   constructor(props) {
@@ -14,29 +14,55 @@ export default class Movies extends Component {
     };
   }
   async componentDidMount() {
-    console.log(this.props.apiKey)
-     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`)
-     let data = res.data
-     this.setState({
-        movies: [...data.results]
-     })
+    console.log(this.props.apiKey);
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`
+    );
+    let data = res.data;
+    this.setState({
+      movies: [...data.results],
+    });
   }
   changeMovies = async () => {
-     let cpage = this.state.curPage;
-     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`)
-     let data = res.data
-     this.setState({
-        movies: [...data.results]
-     })
-  }
+    let cpage = this.state.curPage;
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`
+    );
+    let data = res.data;
+    this.setState({
+      movies: [...data.results],
+    });
+  };
   handleRight = () => {
-     let temparr = []
-     for(let i=1; i<=this.state.parr.length+1; i++)
-         temparr.push(i);
-     this.setState({
-       parr: [...temparr],
-       curPage: this.state.curPage+1
-     }, this.changeMovies)    
+    let temparr = [];
+    for (let i = 1; i <= this.state.parr.length + 1; i++) temparr.push(i);
+    this.setState(
+      {
+        parr: [...temparr],
+        curPage: this.state.curPage + 1,
+      },
+      this.changeMovies
+    );
+  };
+  handleLeft = () => {
+    if (this.state.curPage != 1) {
+      let temparr = [];
+      for (let i = 1; i <= this.state.parr.length - 1; i++) temparr.push(i);
+      this.setState(
+        {
+          parr: [...temparr],
+          curPage: this.state.curPage - 1,
+        },
+        this.changeMovies
+      );
+    }
+  };
+  handleClick = (value) => {
+     if(value != this.state.curPage) {
+        this.setState({
+           curPage: value
+        }, this.changeMovies)
+     }
   }
   render() {
     return (
@@ -100,19 +126,29 @@ export default class Movies extends Component {
                 <nav aria-label="Page navigation example">
                   <ul className="pagination">
                     <li className="page-item">
-                      <a className="page-link" href="/#">
+                      <a
+                        className="page-link"
+                        href="/#"
+                        onClick={this.handleLeft}
+                      >
                         Previous
                       </a>
                     </li>
                     {this.state.parr.map((value) => {
-                      return <li className="page-item">
-                        <a className="page-link" href="/#">
-                          {value}
-                        </a>
-                      </li>;
+                      return (
+                        <li className="page-item">
+                          <a className="page-link" href="/#" onClick={()=>this.handleClick(value)}>
+                            {value}
+                          </a>
+                        </li>
+                      );
                     })}
                     <li className="page-item">
-                      <a className="page-link" href="/#" onClick={this.handleRight}>
+                      <a
+                        className="page-link"
+                        href="/#"
+                        onClick={this.handleRight}
+                      >
                         Next
                       </a>
                     </li>
