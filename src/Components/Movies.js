@@ -1,20 +1,30 @@
 import React, { Component } from "react";
 import { movies } from "./getMovies.js";
 import "./Movies.css";
+import axios from 'axios';
 
 export default class Movies extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hover: "",
-      parr: [1]
+      parr: [1],
+      curPage: 1,
+      movies: [],
     };
   }
+  async componentDidMount() {
+    console.log(this.props.apiKey)
+     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`)
+     let data = res.data
+     this.setState({
+        movies: [...data.results]
+     })
+  }
   render() {
-    let movie = movies.results;
     return (
       <>
-        {movie.length === 0 ? (
+        {this.state.movies.length === 0 ? (
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -26,7 +36,7 @@ export default class Movies extends Component {
             <div>
               <div className="container">
                 <div className="row">
-                  {movie.map((movieObj) => {
+                  {this.state.movies.map((movieObj) => {
                     return (
                       // If we hover over the card then hover stores id of movie
                       <div
