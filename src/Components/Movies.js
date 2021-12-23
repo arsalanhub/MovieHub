@@ -21,6 +21,23 @@ export default class Movies extends Component {
         movies: [...data.results]
      })
   }
+  changeMovies = async () => {
+     let cpage = this.state.curPage;
+     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`)
+     let data = res.data
+     this.setState({
+        movies: [...data.results]
+     })
+  }
+  handleRight = () => {
+     let temparr = []
+     for(let i=1; i<=this.state.parr.length+1; i++)
+         temparr.push(i);
+     this.setState({
+       parr: [...temparr],
+       curPage: this.state.curPage+1
+     }, this.changeMovies)    
+  }
   render() {
     return (
       <>
@@ -95,7 +112,7 @@ export default class Movies extends Component {
                       </li>;
                     })}
                     <li className="page-item">
-                      <a className="page-link" href="/#">
+                      <a className="page-link" href="/#" onClick={this.handleRight}>
                         Next
                       </a>
                     </li>
