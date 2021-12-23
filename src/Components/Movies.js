@@ -57,7 +57,7 @@ export default class Movies extends Component {
                           <div className="card-body">
                             <h5 className="card-title">
                               {movieObj.original_title}
-                              <span class="badge bg-primary rating">
+                              <span className="badge bg-primary rating">
                                 {movieObj.vote_average}
                               </span>
                             </h5>
@@ -67,8 +67,8 @@ export default class Movies extends Component {
                             <div className="button-wrapper button-style">
                               {
                                 //  if hover stores id of movie then display Add to favourite button
-                                this.state.hover == movieObj.id && (
-                                  <a className="btn btn-primary">
+                                this.state.hover === movieObj.id && (
+                                  <a href="/#" className="btn btn-primary">
                                     Add to Favourite
                                   </a>
                                 )
@@ -81,21 +81,21 @@ export default class Movies extends Component {
                   })}
                 </div>
                 <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#">
+                  <ul className="pagination">
+                    <li className="page-item">
+                      <a className="page-link" href="/#">
                         Previous
                       </a>
                     </li>
                     {this.state.parr.map((value) => {
-                      return <li class="page-item">
-                        <a class="page-link" href="#">
+                      return <li className="page-item">
+                        <a className="page-link" href="/#">
                           {value}
                         </a>
                       </li>;
                     })}
-                    <li class="page-item">
-                      <a class="page-link" href="#">
+                    <li className="page-item">
+                      <a className="page-link" href="/#">
                         Next
                       </a>
                     </li>
