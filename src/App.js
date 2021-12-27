@@ -4,6 +4,7 @@ import Movies from './Components/Movies';
 import Navbar from './Components/Navbar';
 
 import React, { Component } from 'react'
+import Favourite from './Components/Favourite';
 
 export default class App extends Component {
   apiKey = process.env.REACT_APP_MOVIES_API
@@ -11,8 +12,9 @@ export default class App extends Component {
     return (
       <>
         <Navbar />
-        <Banner />
-        <Movies apiKey={this.apiKey}/>  
+        {/* <Banner />
+        <Movies apiKey={this.apiKey}/>   */}
+        <Favourite />
       </>
     )
   }
