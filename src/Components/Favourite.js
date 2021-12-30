@@ -4,9 +4,10 @@ import "./Favourite.css";
 
 export default class Favourite extends Component {
   constructor() {
-    super()
+    super();
      this.state = {
-        generes: []
+        generes: [],
+        curgen: 'All Genres'
      }
   }
   render() {
@@ -25,9 +26,6 @@ export default class Favourite extends Component {
     // unshift stores value in begnning instead of end 
     // unshift is opposite of push_back
     temp.unshift('All Genres')
-    // this.setState({
-    //    generes: [...temp]
-    // })
     return (
       <div>
         <>
@@ -36,20 +34,19 @@ export default class Favourite extends Component {
               <div className="col-3">
                 <ul className="list-group favourites-genres">
                   {
-                     temp.map((genre)=>{
-                      return <li className="list-group-item">{genre}</li>     
+                     temp.map((genre, idx)=>{
+                        if(this.state.curgen === genre)
+                           return <li className="list-group-item" style={{background: '#0B5ED7', color: 'white', fontWeight: 'bold'}} key={idx}>{genre}</li>
+                        else    
+                           return <li className="list-group-item" style={{background: 'white', color: '#0B5ED7', fontWeight: 'bold'}} key={idx}>{genre}</li>
                      })
                   }
-                  {/* <li className="list-group-item">Action</li>
-                  <li className="list-group-item">Comedy</li>
-                  <li className="list-group-item">A fourth item</li>
-                  <li className="list-group-item">And a fifth one</li> */}
                 </ul>
               </div>
               <div className="col-9 favourites-table">
                 <div className="row">
                   <input type="text" className="input-group-text col" placeholder="Search"/>
-                  <input type="number" className="input-group-text col mx-3" />
+                  <input type="number" className="input-group-text col mx-3" placeholder="Rows Count"/>
                 </div>
                 <div className="row my-5">
                   <table className="table table-striped table-hover">
@@ -64,15 +61,15 @@ export default class Favourite extends Component {
                     </thead>
                     <tbody>
                       {movie.map((movieObj) => {
-                        return <tr>
+                        return <tr key={movieObj.id}>
                           <th scope="row">
-                            <img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} style={{width: '5rem'}}/>
+                            <img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt="" style={{width: '5rem'}}/>
                             <span className="mx-2">{movieObj.original_title}</span>
                           </th>
                           <td>{genreids[movieObj.genre_ids[0]]}</td>
                           <td>{movieObj.popularity}</td>
                           <td>{movieObj.vote_average}</td>
-                          <td><button type="button" class="btn btn-outline-info">Delete</button></td>
+                          <td><button type="button" className="btn btn-outline-info">Delete</button></td>
                         </tr>;
                       })}
                     </tbody>
@@ -81,27 +78,27 @@ export default class Favourite extends Component {
                 <nav aria-label="Page navigation example">
                   <ul className="pagination">
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" href="/#">
                         Previous
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" href="/#">
                         1
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" href="/#">
                         2
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" href="/#">
                         3
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="#">
+                      <a className="page-link" href="/#">
                         Next
                       </a>
                     </li>
@@ -115,3 +112,4 @@ export default class Favourite extends Component {
     );
   }
 }
+

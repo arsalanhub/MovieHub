@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { movies } from "./getMovies.js";
 import "./Movies.css";
 import axios from "axios";
 
@@ -24,7 +23,6 @@ export default class Movies extends Component {
     });
   }
   changeMovies = async () => {
-    let cpage = this.state.curPage;
     const res = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${this.props.apiKey}&page=${this.state.curPage}`
     );
@@ -45,7 +43,7 @@ export default class Movies extends Component {
     );
   };
   handleLeft = () => {
-    if (this.state.curPage != 1) {
+    if (this.state.curPage !== 1) {
       let temparr = [];
       for (let i = 1; i <= this.state.parr.length - 1; i++) temparr.push(i);
       this.setState(
@@ -58,7 +56,7 @@ export default class Movies extends Component {
     }
   };
   handleClick = (value) => {
-     if(value != this.state.curPage) {
+     if(value !== this.state.curPage) {
         this.setState({
            curPage: value
         }, this.changeMovies)
