@@ -3,10 +3,31 @@ import { movies } from "./getMovies";
 import "./Favourite.css";
 
 export default class Favourite extends Component {
+  constructor() {
+    super()
+     this.state = {
+        generes: []
+     }
+  }
   render() {
     const movie = movies.results;
     let genreids = {28:'Action',12:'Adventure',16:'Animation',35:'Comedy',80:'Crime',99:'Documentary',18:'Drama',10751:'Family',14:'Fantasy',36:'History',
                         27:'Horror',10402:'Music',9648:'Mystery',10749:'Romance',878:'Sci-Fi',10770:'TV',53:'Thriller',10752:'War',37:'Western'};
+    
+    let temp = [];
+    movie.forEach((movieObj)=>{
+       // If genere id of any movie not there in temp array 
+       // then we push it in temp array
+       // temp array will store all generes
+       if(!temp.includes(genreids[movieObj.genre_ids[0]])) 
+           temp.push(genreids[movieObj.genre_ids[0]])
+    })
+    // unshift stores value in begnning instead of end 
+    // unshift is opposite of push_back
+    temp.unshift('All Genres')
+    // this.setState({
+    //    generes: [...temp]
+    // })
     return (
       <div>
         <>
@@ -14,11 +35,15 @@ export default class Favourite extends Component {
             <div className="row">
               <div className="col-3">
                 <ul className="list-group favourites-genres">
-                  <li className="list-group-item">All Genres</li>
-                  <li className="list-group-item">Action</li>
+                  {
+                     temp.map((genre)=>{
+                      return <li className="list-group-item">{genre}</li>     
+                     })
+                  }
+                  {/* <li className="list-group-item">Action</li>
                   <li className="list-group-item">Comedy</li>
                   <li className="list-group-item">A fourth item</li>
-                  <li className="list-group-item">And a fifth one</li>
+                  <li className="list-group-item">And a fifth one</li> */}
                 </ul>
               </div>
               <div className="col-9 favourites-table">
