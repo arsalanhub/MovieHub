@@ -23,7 +23,7 @@ export default class Favourite extends Component {
               </div>
               <div className="col-9 favourites-table">
                 <div className="row">
-                  <input type="text" className="input-group-text col" />
+                  <input type="text" className="input-group-text col" placeholder="Search"/>
                   <input type="number" className="input-group-text col mx-3" />
                 </div>
                 <div className="row my-5">
@@ -34,14 +34,20 @@ export default class Favourite extends Component {
                         <th scope="col">Genere</th>
                         <th scope="col">Popularity</th>
                         <th scope="col">Rating</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody>
                       {movie.map((movieObj) => {
                         return <tr>
-                          <th scope="row">{movieObj.original_title}</th>
+                          <th scope="row">
+                            <img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} style={{width: '5rem'}}/>
+                            <span className="mx-2">{movieObj.original_title}</span>
+                          </th>
                           <td>{genreids[movieObj.genre_ids[0]]}</td>
-                          <td>@mdo</td>
+                          <td>{movieObj.popularity}</td>
+                          <td>{movieObj.vote_average}</td>
+                          <td><button type="button" class="btn btn-outline-info">Delete</button></td>
                         </tr>;
                       })}
                     </tbody>
