@@ -10,7 +10,7 @@ export default class Movies extends Component {
       parr: [1],
       curPage: 1,
       movies: [],
-      favourites: []
+      favourites: [],
     };
   }
   async componentDidMount() {
@@ -57,25 +57,36 @@ export default class Movies extends Component {
     }
   };
   handleClick = (value) => {
-     if(value !== this.state.curPage) {
-        this.setState({
-           curPage: value
-        }, this.changeMovies)
-     }
-  }
+    if (value !== this.state.curPage) {
+      this.setState(
+        {
+          curPage: value,
+        },
+        this.changeMovies
+      );
+    }
+  };
   // This function contains logic for add to favourite button
   handleFavourites = (movie) => {
-     let oldData = JSON.parse(localStorage.getItem('movies-app') || "[]")
-     if(this.state.favourites.includes(movie.id)) {
-        // if movie is already present in favourite then remove that movie
-        oldData = oldData.filter((a)=>a.id !== movie.id)
-     } else {
-        // If movie not present in favourite then push that movie
-        oldData.push(movie)
-     }
-     localStorage.setItem("movies-app", JSON.stringify(oldData))
-     console.log(oldData)
-  }
+    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]");
+    if (this.state.favourites.includes(movie.id)) {
+      // if movie is already present in favourite then remove that movie
+      oldData = oldData.filter((a) => a.id !== movie.id);
+    } else {
+      // If movie not present in favourite then push that movie
+      oldData.push(movie);
+    }
+    localStorage.setItem("movies-app", JSON.stringify(oldData));
+    console.log(oldData);
+    this.handleFavouritesState();
+  };
+  handleFavouritesState = () => {
+    let oldData = JSON.parse(localStorage.getItem("movies-app") || "[]");
+    let temp = oldData.map((movie) => movie.id);
+    this.setState({
+      favourites: [...temp],
+    });
+  };
   render() {
     return (
       <>
@@ -124,8 +135,16 @@ export default class Movies extends Component {
                               {
                                 //  if hover stores id of movie then display Add to favourite button
                                 this.state.hover === movieObj.id && (
-                                  <a href="/#" className="btn btn-primary" onClick={()=>this.handleFavourites(movieObj)}>
-                                    Add to Favourite
+                                  <a
+                                    href="/#"
+                                    className="btn btn-primary"
+                                    onClick={() =>
+                                      this.handleFavourites(movieObj)
+                                    }
+                                  >
+                                    {this.state.favourites.includes(movieObj.id)
+                                      ? "Remove from favourites"
+                                      : "Add to favourites"}
                                   </a>
                                 )
                               }
@@ -150,7 +169,11 @@ export default class Movies extends Component {
                     {this.state.parr.map((value, idx) => {
                       return (
                         <li className="page-item" key={idx}>
-                          <a className="page-link" href="/#" onClick={()=>this.handleClick(value)}>
+                          <a
+                            className="page-link"
+                            href="/#"
+                            onClick={() => this.handleClick(value)}
+                          >
                             {value}
                           </a>
                         </li>
