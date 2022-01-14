@@ -65,15 +65,15 @@ export default class Movies extends Component {
   }
   // This function contains logic for add to favourite button
   handleFavourites = (movie) => {
-     let oldData = JSON.parse(localStorage.getItem('movies') || "[]")
+     let oldData = JSON.parse(localStorage.getItem('movies-app') || "[]")
      if(this.state.favourites.includes(movie.id)) {
         // if movie is already present in favourite then remove that movie
         oldData = oldData.filter((a)=>a.id !== movie.id)
      } else {
-        // If movie not present in favourite then ass that movie
-        oldData.push(movie) 
+        // If movie not present in favourite then push that movie
+        oldData.push(movie)
      }
-     localStorage.setItem("movies", JSON.stringify(oldData))
+     localStorage.setItem("movies-app", JSON.stringify(oldData))
      console.log(oldData)
   }
   render() {
