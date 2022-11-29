@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Favourite from "./Components/Favourite";
 
 export default class App extends Component {
-  apiKey = process.env.REACT_APP_MOVIES_API;
   render() {
     return (
       <>
@@ -21,7 +20,7 @@ export default class App extends Component {
               element={
                 <>
                   <Banner />
-                  <Movies apiKey={this.apiKey} />
+                  <Movies apiKey="7a61c0147be111ba77532bba554aabf9" />
                 </>
               }
             />
